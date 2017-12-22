@@ -1,12 +1,46 @@
 <?php
-	//Redirect to myebuy.php with your ID
-	/*$url = $uri = $_SERVER['REQUEST_URI'];
-		echo parse_url($url, PHP_URL_QUERY);
-		die();
+	session_start();
 	
-	if (isset($_SESSION['id'])){
+	//Database connection
+	
+	require_once('php/mysql_r_db_connect.php');
 		
-	}*/
+	//Site only accessible with a selected user
+	if (!isset($_GET['user'])){
+		header('Location: userprof.php?user=' . $_SESSION['id']);
+	}
+	
+	//Get data of user out of database	
+	
+	$id_user = $_GET['user'];
+	
+	//SQL query to check if user with id X exists 
+	$sql_id = "SELECT COUNT(fldIdUSer) FROM tblUsers WHERE fldIdUSer LIKE '$id_user'";
+	$quantity_id = $handle -> prepare($sql_id);
+	$quantity_id->execute();
+	$row_id = $quantity_id->fetchColumn();
+
+	//Check if user exists
+	if ($row_id == 0){
+		header('Location: userprof.php?user=' . $_SESSION['id']);
+	}
+	
+	//SQL query to get user data
+	$sql = "SELECT fldUsername, fldEmail, fldPhone, fldStreet, fldPostcode, fldPlace FROM tblUsers WHERE fldIdUSer LIKE '$id_user'";
+	$stmt = $handle->query($sql);
+	$row = $stmt->fetchObject();
+	
+	//SQL query to find how many products the buyer  has sold
+	$sql_sold = "SELECT COUNT(fldIdProduct) FROM tblProducts WHERE fldFkSoldBy LIKE '$id_user'";
+	$quantitys = $handle -> prepare($sql_sold);
+	$quantitys->execute();
+	$row_sold = $quantitys->fetchColumn();
+	
+	//SQL query to find how many products the buyer  has bought
+	$sql_boughtd = "SELECT COUNT(fldIdProduct) FROM tblProducts WHERE fldFkBoughtBy LIKE '$id_user'";
+	$quantityb = $handle -> prepare($sql_boughtd);
+	$quantityb->execute();
+	$row_bought = $quantityb->fetchColumn();
 ?>
 <!DOCTYPE html>
 
@@ -44,15 +78,23 @@
 		<nav id="home_navigation">
 			<div class="nav-wrapper grey lighten-5">
 				<a href="index.php" class="brand-logo left"><img src="img/logo.png"/></a>
-				<!--<ul id="nav-mobile" class="right">
-					<li><a class="waves-effect waves-light waves-light red btn" href="login.php">Anmelden <i class="material-icons right">account_circle</i></a></li>
-				</ul> -->
-				
-				<!-- Dropdown Button nur when angemeldet -->
-				<ul id="nav-mobile" class="right">
-					<li><a style="min-width:180px;" class="waves-effect waves-light dropdown-button btn" data-activates='dropdownAccount'>Yourusername <i class="material-icons right">account_circle</i></a></li>
-				</ul>
-				
+				<?php
+					if (!isset($_SESSION['username'])){
+						echo '
+							<ul id="nav-mobile" class="right">
+								<li><a class="waves-effect waves-light waves-light red btn" href="login.php">Anmelden <i class="material-icons right">account_circle</i></a></li>
+							</ul>
+						';
+					}
+					if (isset($_SESSION['username'])){
+						echo '
+							<!-- Dropdown Button nur when angemeldet -->
+							<ul id="nav-mobile" class="right">
+								<li><a class="btn-min-width waves-effect waves-light dropdown-button btn" data-activates="dropdownAccount">' . $_SESSION['username'] . '<i class="material-icons right">account_circle</i></a></li>
+							</ul>
+						';
+					}
+				?>					
 			</div>
 		</nav>
 		
@@ -79,7 +121,7 @@
 						<div class="col s12">
 							<a href="index.php" class="breadcrumb">Home</a>
 							<a href="myebuy.php" class="breadcrumb">My eBuy</a>
-							<a class="breadcrumb">Otherusername</a>
+							<a class="breadcrumb"><?php echo $row->fldUsername; ?></a>
 						</div>
 					</div>
 				</nav>
@@ -96,7 +138,7 @@
 				<!-- Username and Rating-->
 				<div class="row">
 					<div class="input-field col s10">
-						<blockquote class="blocknear"><h4>Otherusername 
+						<blockquote class="blocknear"><h4><?php echo $row->fldUsername; ?> 
 							<i class="fa fa-star icon-star" aria-hidden="true"></i>
 							<i class="fa fa-star icon-star" aria-hidden="true"></i>
 							<i class="fa fa-star-half-o icon-star" aria-hidden="true"></i>
@@ -109,27 +151,27 @@
 					<table id="userinformations" class="grey lighten-5">
 						<tr>
 							<td><b>Email Adresse:</b></td>
-							<td><a>hisherusername@pollos.com</a></td>
+							<td><a><?php echo $row->fldEmail; ?></a></td>
 						</tr>						
 						<tr>
 							<td><b>Telefonnummer:</b></td>
-							<td><a>081 456 21 85</a></td>
+							<td><a><?php echo $row->fldPhone; ?></a></td>
 						</tr>
 						<tr>
-							<td><b>Adresse</b></td>
-							<td><a>Randomstrasse 22</a></td>
+							<td><b>Strasse</b></td>
+							<td><a><?php echo $row->fldStreet; ?></a></td>
 						</tr>						
 						<tr>
 							<td><b>Stadt</b></td>
-							<td><a>7061, Randomstadt</a></td>
+							<td><a><?php echo $row->fldPostcode . ', ' . $row->fldPlace; ?></a></td>
 						</tr>
 						<tr>
 							<td><b>Total verkaufte Produkte</b></td>
-							<td><a>11</a></td>
+							<td><a><?php echo $row_sold; ?></a></td>
 						</tr>						
 						<tr>
 							<td><b>Gekaufte Produkte</b></td>
-							<td><a>3</a></td>
+							<td><a><?php echo $row_bought; ?></a></td>
 						</tr>
 					</table>
 				</div>

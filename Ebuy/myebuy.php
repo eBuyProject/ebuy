@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	error_reporting(0);
 
 	//Page only accessible when logged in
 	
@@ -102,7 +103,7 @@
 							<i class="fa fa-star icon-star" aria-hidden="true"></i>
 							<i class="fa fa-star icon-star" aria-hidden="true"></i>
 							<i class="fa fa-star icon-star" aria-hidden="true"></i>
-							<i class="fa fa-star-half-o icon-star" aria-hidden="true"></i></h4>
+							<i class="fa fa-star-o icon-star" aria-hidden="true"></i></h4>
 						</blockquote>
 					</div>
 				</div>
@@ -112,8 +113,8 @@
 				
 				<!-- MEIN VERKAUFEN und MEIN KAUFEN swipe buttons-->
 				<ul id="tabs-swipe-profile" class="tabs waves-light">
-					<li class="tab col s3"><a class="active" href="#profile-swipe-1">Mein Verkaufen</a></li>
-					<li class="tab col s3"><a href="#profile-swipe-2">Mein Kaufen</a></li>
+					<li class="tab col s3"><a class="active" href="#profile-swipe-1">Meine Verkäufe</a></li>
+					<li class="tab col s3"><a href="#profile-swipe-2">Meine Käufe</a></li>
 				</ul>
 				
 				<!-- Table "MEIN VERKAUFEN"-->
@@ -132,60 +133,7 @@
 						</thead>
 
 						<tbody>
-							<tr>
-								<td>11.11.2017</td>
-								<td><a class="modal-trigger" href="#modalUser">Markfas4634</a></td>
-								<td><a class="modal-trigger" href="#modalProductInfo">Panasonic LCD TV</a></td>
-								<td>200 CHF</td>
-								<td>Abgeschlossen</td>
-								<td>
-									<select class="starsverkaufen">
-									  <option value="1">1</option>
-									  <option value="2">2</option>
-									  <option value="3">3</option>
-									  <option value="4">4</option>
-									  <option value="5">5</option>
-									</select>
-								</td>
-								<td class="no-decoration"><a class="modal-trigger" href="#modalComment"><i class="material-icons">check</i></a></td>
-							</tr>
-							<tr>
-								<td>11.11.2017</td>
-								<td><a class="modal-trigger" href="#modalUser">Jellybean61</a></td>
-								<td><a class="modal-trigger" href="#modalProductInfo">HP DC7900 Small Factor</a></td>
-								<td>60 CHF</td>
-								<td>Abgeschlossen</td>
-								<td>
-									<select class="starsverkaufen">
-									  <option value="1">1</option>
-									  <option value="2">2</option>
-									  <option value="3">3</option>
-									  <option value="4">4</option>
-									  <option value="5">5</option>
-									</select>
-								</td>
-								<td class="no-decoration"><a class="modal-trigger" href="#modalComment"><i class="material-icons">comment</i></a></td>
-							</tr>
-							<tr>
-								<td>11.11.2017</td>
-								<td><a class="modal-trigger" href="#modalUser">Lollipop_6</a></td>
-								<td><a class="modal-trigger" href="#modalProductInfo">Lucky Luke Collection</a></td>
-								<td>500 CHF</td>
-								<td>In Verlauf</td>
-								<td>
-									<select class="starsverkaufen">
-									  <option value="1">1</option>
-									  <option value="2">2</option>
-									  <option value="3">3</option>
-									  <option value="4">4</option>
-									  <option value="5">5</option>
-									</select>
-								</td>
-								<td class="no-decoration"><a class="modal-trigger" href="#modalComment"><i class="material-icons">comment</i></a></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+							<?php include('php/my_sell.php'); my_sell(); ?>
 				
 				<!-- Table "MEIN KAUFEN"-->
 				<div id="profile-swipe-2" class="col s12">
@@ -203,7 +151,9 @@
 						</thead>
 
 						<tbody>
-							<tr>
+							<?php include('php/my_buy.php'); my_buy(); ?>
+			
+							<!--<tr>
 								<td>Neu</td>
 								<td><a class="modal-trigger" href="#modalUser">Franzfranz</a></td>
 								<td><a class="modal-trigger" href="#modalProductInfo">Citroen C3 1.2i</a></td>
@@ -253,15 +203,11 @@
 									</select>
 								</td>
 								<td class="no-decoration"><a class="modal-trigger" href="#modalComment"><i class="material-icons">comment</i></a></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
+							</tr>-->
+						
 			
 		<!-- Modal Structure for User-->
-		<div id="modalUser" class="modal">
+		<!--<div id="modalUser" class="modal">
 			<div class="modal-content">
 				<h4>HisHerUsername<i class="material-icons icon-star">&nbsp;star star star star star_border</i></h4>
 				<br />
@@ -287,7 +233,7 @@
 		</div>
 		
 		<!-- Modal Structure for Product-->
-		<div id="modalProductInfo" class="modal">
+		<!--<div id="modalProductInfo" class="modal">
 			<div class="modal-content">
 				<h4>Panasonic LCD TV</h4>
 				<div class="clearfix float-my-children">
@@ -308,27 +254,7 @@
 			<div class="modal-footer">
 				<a class="modal-action modal-close waves-effect waves-teal lighten-2 btn-flat">Schliessen</a>
 			</div>			
-		</div>
-		
-		<!-- Modal Structure for Comment-->
-		<div id="modalComment" class="modal">
-			<div class="modal-content">
-				<h4>Verkäufer: HisHerUsername<i class="material-icons icon-star">&nbsp;star star star star star_border</i></h4>
-				
-				<br />
-				<p class="Description">Hier kannst du ein Kommentar über der Verkäfer schreiben.</p>
-				<br />
-					<div class="input-field col s12">
-						<textarea id="textarea1" class="materialize-textarea"></textarea>
-						<label for="textarea1">Kommentar über das Verkäufer schreiben:</label>
-					</div>
-			
-			</div>
-			<div class="modal-footer">
-				<a class="modal-action modal-close waves-effect waves-teal lighten-2 btn-flat">Abbrechen</a>
-				<a class=" waves-effect waves-teal lighten-2 btn-flat">Kommentieren</a>
-			</div>
-			</div>			
+		</div>		
 		</div>
 
 		<!-- jQuery -->

@@ -81,213 +81,164 @@
 
 ?>
 <!DOCTYPE html>
-	
-	<!-- Begin of HTML-->
+
 	<html lang="de">
-	
-		<!-- Begin of head-->
-		<head>
-			<!-- specifies the character encoding of the HTML file-->
-			<meta charset="utf-8">
-			
-			<!-- Page title-->
-			<title>eBuy.ch</title>
-			
-			<!-- Meta tags-->
-			<meta name="description" content="Kleinanzeige Projekt, Modul 133 - GBC Chur" />
-			<meta name="author" content="Oscar Cortesi" />
-			<meta name="author" content="Sandro Zimmermann" />
+	<head>
+		<meta charset="utf-8">
+		<title>eBuy.ch</title>
+		<meta name="description" content="Kleinanzeige Projekt, Modul 133 - GBC Chur" />
+		<meta name="author" content="Oscar Cortesi" />
+		<meta name="author" content="Sandro Zimmermann" />
 
-			<!-- .ico image -->
-			<link rel="icon" href="favicon.ico">
+		<!-- .ico image -->
+		<link rel="icon" href="favicon.ico">
 
-			<!-- Font Awesome for Icons -->
-			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-			
-			<!-- Materialize CSS -->
-			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+		<!-- Font Awesome for Icons -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		
+		<!-- Materialize -->
+		<!-- Compiled and minified CSS -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
 
-			<!-- Materialize icons -->
-			<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-			
-			<!-- Custom CSS Style -->
-			<link rel="stylesheet" href="css/style.css">
-		</head>
-		<!-- End of head-->
+		<!-- Materialize icons -->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		
+		<!-- CSS Style -->
+		<link rel="stylesheet" href="css/style.css">
+	</head>
 	
-		<!-- Begin of body-->
-		<body>
+	<body>
 	
-			<!--Begin of navigation-->
-			<nav id="home_navigation">
-				<div class="nav-wrapper grey lighten-5">
-					<!-- Logo image-->
-					<a href="index.php" class="brand-logo left"><img src="img/logo.png"/></a>	
-				</div>
-			</nav>
-			<!-- End of navigation-->
-			
-			<!-- Begin of register row-->
-			<div class="row">	
-				<div class="col s6 offset-s3">
-						<!-- from div-->
-						<div id="form_register_login">
-							
-							<!-- linebreakes -->
-							<br />
-							<br />
-							
-							<!-- text and link to login page -->
-							<div class="center"><p>Schon registriert?&nbsp;&nbsp;&nbsp;<a class="btn waves-effect waves-light" href="login.php">Anmelden</a></p></div>
-							
-							<!-- linebreake -->
-							<br />
-							
-							<!-- Begin of form-->
-							<form action="register.php" method="POST" class="col s12 grey lighten-5">
-							
-								<!-- Errors row -->
-								<div class="row">
-									<div class="input-field col s12">
-										<div class="form_register_error"><?php echo $_SESSION['form_register_error']; ?></div>
-									</div>
-								</div>
-								
-								<!-- Dropdown gender-->
-								<div class="row">
-									<div class="input-field col s6">
-										<select name="ddsalutation" id="ddsalutation">
-											<option value="" disabled selected>Anrede</option>
-											<option value="Herr">Herr</option>
-											<option value="Frau">Frau</option>
-										</select>
-										<label>Anrede:</label>
-									</div>
-								</div>
-								
-								<!-- Name and surname field-->
-								<div class="row">
-									<div class="input-field col s6">
-										<input placeholder="Vorname" name="first_name" id="first_name" type="text" class="validate" maxlength="45" />
-										<label for="first_name">Vorname:</label>
-									</div>
-									<div class="input-field col s6">
-										<input placeholder="Nachname" name="last_name" id="last_name" type="text" class="validate" maxlength="45" />
-										<label for="last_name">Nachname:</label>
-									</div>
-								</div>
-								
-								<!-- Username field-->
-								<div class="row">
-									<div class="input-field col s12">
-										<input placeholder="Username" name="username" id="username" type="text" class="validate" maxlength="100" />
-										<label for="username">Username:</label>
-									</div>
-								</div>
-								
-								<!-- 2 times password filed-->
-								<div class="row">
-									<div class="input-field col s6">
-										<input placeholder="Passwort" name="password" id="password" type="password" class="validate" maxlength="32" />
-										<label for="password">Passwort:</label>
-									</div>
-									<div class="input-field col s6">
-										<input placeholder="Passwort wiederholden" name="password2" id="password2" type="password" class="validate" maxlength="32" />
-										<label for="password2">Passwort wiederholden:</label>
-									</div>
-								</div>
-								
-								<!-- Email adress field-->
-								<div class="row">
-									<div class="input-field col s12">
-										<input placeholder="E-Mail" name="email" id="email" type="email" class="validate" maxlength="100" />
-										<label for="email">E-Mail Adresse:</label>
-									</div>
-								</div>
-								
-								<!-- Telefon number field-->
-								<div class="row">
-									<div class="input-field col s12">
-										<input placeholder="Telefon" name="phone" id="phone" type="text" class="validate" maxlength="10" />
-										<label for="phone">Telefon (z.B. 0799442209):</label>
-									</div>
-								</div>
-								
-								<!-- Street field-->
-								<div class="row">
-									<div class="input-field col s12">
-										<input placeholder="Strasse" name="street" id="street" type="text" class="validate" maxlength="100" />
-										<label for="phone">Strasse:</label>
-									</div>
-								</div>
-								
-								<!-- Post code and place filed-->
-								<div class="row">
-									<div class="input-field col s6">
-										<input placeholder="PLZ" name="postcode" id="postcode" type="text" class="validate" maxlength="4" />
-										<label for="postcode">PLZ:</label>
-									</div>
-									<div class="input-field col s6">
-										<input placeholder="Ort" name="place" id="place" type="text" class="validate" maxlength="100" />
-										<label for="place">Ort:</label>
-									</div>
-								</div>
-								
-								<!-- Birthdate field-->
-								<div class="row">
-									<div class="input-field col s12">
-										  <input placeholder="Geburtstag Datum" type="text" name="birthday" class="datepicker" id="birthday" maxlength="10" />
-										<label for="birthday">Geburtstag</label>
-									</div>
-								</div>
-								
-								<!-- Register button-->
-								<div class="center col s12">
-									<button class="center btn waves-effect waves-light" type="submit" name="register">Jetzt registrieren</button>
-								
-								<!-- linebreakes -->								
-								<br />
-								<br />
-								
-								</div>
-							</form>
-							<!-- End of form-->
+		
+		<!--Top navigation-->
+		<nav id="home_navigation">
+			<div class="nav-wrapper grey lighten-5">
+				<a href="index.php" class="brand-logo left"><img src="img/logo.png"/></a>	
+			</div>
+		</nav>
+		
+		
+		<div class="row">	
+			<div class="col s6 offset-s3">
+				<div id="form_register_login">
+					<br />
+					<br />
+					<div class="center"><p>Schon registriert?&nbsp;&nbsp;&nbsp;<a class="btn waves-effect waves-light" href="login.php">Anmelden</a></p></div>
+					<br />
+					<form action="register.php" method="POST" class="col s12 grey lighten-5">
+						<div class="row">
+							<div class="input-field col s12">
+								<div class="form_register_error"><?php echo $_SESSION['form_register_error']; ?></div>
+							</div>
 						</div>
-						<!-- End of form div-->
+						<div class="row">
+							<div class="input-field col s6">
+								<select name="ddsalutation" id="ddsalutation">
+									<option value="" disabled selected>Anrede</option>
+									<option value="Herr">Herr</option>
+									<option value="Frau">Frau</option>
+								</select>
+								<label>Anrede:</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s6">
+								<input placeholder="Vorname" name="first_name" id="first_name" type="text" class="validate" maxlength="45" />
+								<label for="first_name">Vorname:</label>
+							</div>
+							<div class="input-field col s6">
+								<input placeholder="Nachname" name="last_name" id="last_name" type="text" class="validate" maxlength="45" />
+								<label for="last_name">Nachname:</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<input placeholder="Username" name="username" id="username" type="text" class="validate" maxlength="100" />
+								<label for="username">Username:</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s6">
+								<input placeholder="Passwort" name="password" id="password" type="password" class="validate" maxlength="32" />
+								<label for="password">Passwort:</label>
+							</div>
+							<div class="input-field col s6">
+								<input placeholder="Passwort wiederholden" name="password2" id="password2" type="password" class="validate" maxlength="32" />
+								<label for="password2">Passwort wiederholden:</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<input placeholder="E-Mail" name="email" id="email" type="email" class="validate" maxlength="100" />
+								<label for="email">E-Mail Adresse:</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<input placeholder="Telefon" name="phone" id="phone" type="text" class="validate" maxlength="10" />
+								<label for="phone">Telefon (z.B. 0799442209):</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<input placeholder="Strasse" name="street" id="street" type="text" class="validate" maxlength="100" />
+								<label for="phone">Strasse:</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s6">
+								<input placeholder="PLZ" name="postcode" id="postcode" type="text" class="validate" maxlength="4" />
+								<label for="postcode">PLZ:</label>
+							</div>
+							<div class="input-field col s6">
+								<input placeholder="Ort" name="place" id="place" type="text" class="validate" maxlength="100" />
+								<label for="place">Ort:</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								  <input placeholder="Geburtstag Datum" type="text" name="birthday" class="datepicker" id="birthday" maxlength="10" />
+								<label for="birthday">Geburtstag</label>
+							</div>
+						</div>
+						<div class="center col s12">
+							<button class="center btn waves-effect waves-light" type="submit" name="register">Jetzt registrieren</button>
+						<br />
+						<br />
+						</div>
+					</form>
 				</div>
 			</div>
-			<!-- End of register row-->
-
-
-			<!-- jQuery link-->
-			<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-			<!-- Materialize JavaScript Link-->
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-			<!-- My custom JS-->
-			<script type="text/javascript" src="js/main.js"></script>
+		</div>
 			
-			<!-- Begin of script-->
-			<script>
-			<!-- Date picker initialization-->
-				$('.datepicker').pickadate({
-					format: 'dd.mm.yyyy',
-					formatSubmit: 'dd.mm.yyyy',
-					selectMonths: true, // Creates a dropdown to control month
-					selectYears: 100, // Creates a dropdown of 15 years to control year,
-					monthsFull: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
-					weekdaysShort: ['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam'],
-					max: new Date(),
-					today: 'Heute',
-					clear: 'Abbrechen',
-					close: 'Ok',
-					closeOnSelect: false // Close upon selecting a date,
-				});
-			</script>
-			<!-- End of script-->
+		
 
-		</body>
-		<!-- End of body-->
+		
 
-	</html>
-	<!-- End of HTML-->
+		<!-- jQuery -->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<!-- Compiled and minified JavaScript -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+		<!-- Main JS -->
+		<script type="text/javascript" src="js/main.js"></script>
+		
+		<script>
+		<!-- Date picker initialization-->
+			$('.datepicker').pickadate({
+				format: 'dd.mm.yyyy',
+				formatSubmit: 'dd.mm.yyyy',
+				selectMonths: true, // Creates a dropdown to control month
+				selectYears: 100, // Creates a dropdown of 15 years to control year,
+				monthsFull: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+				weekdaysShort: ['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam'],
+				max: new Date(),
+				today: 'Heute',
+				clear: 'Abbrechen',
+				close: 'Ok',
+				closeOnSelect: false // Close upon selecting a date,
+			});
+		</script>
+
+	</body>
+</html>
 

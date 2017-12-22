@@ -14,6 +14,7 @@
 	//Includes
 	
 	require_once('php/category.php');
+	require_once('php/subcategory.php');
 	require_once('php/soldby.php');
 	require_once('php/upload_image.php');
 	require_once('php/sell.php');
@@ -30,6 +31,7 @@
 	$soldby = 0;
 	$tag_string = '';
 	$terms = '';
+	$payment = 0;
 	
 	//Sell Form
 	
@@ -41,6 +43,7 @@
 		$price = round(trim(htmlentities($_POST['price'])), 2);
 		$product_description = nl2br(trim(htmlentities($_POST['product_description'])));
 		$ddcategory = trim(htmlentities($_POST['ddcategory']));
+		$ddpayment = trim(htmlentities($_POST['ddpayment']));
 		$image = $_FILES['image']['name'];
 		$image_size = $_FILES['image']['size'];
 		$image_tmp = $_FILES['image']['tmp_name'];
@@ -67,20 +70,24 @@
 		}
 		
 		//Error on empty fields
-		if (strlen($product_title) == 0 or strlen($price) == 0 or strlen($product_description) == 0 or strlen($ddcategory) == 0 or strlen($image) == 0){
-			$_SESSION['form_sell_error'] = 'Tietel, Preis, Beschreibung, Kategorie und Bild müssen ausgefüllt werden';
+		if (strlen($product_title) == 0 or strlen($price) == 0 or strlen($product_description) == 0 or strlen($ddcategory) == 0 or strlen($ddpayment) == 0 or strlen($image) == 0){
+			$_SESSION['form_sell_error'] = 'Tietel, Preis, Beschreibung, Kategorie, Zahlungsart und Bild müssen ausgefüllt werden';
 		}
 		//Error on exceed of max fields length
 		else if (strlen($product_title) > 45 or strlen($product_description) > 500 or strlen($image) > 500){
 			$_SESSION['form_sell_error'] = 'Bitte überschreiten Sie nicht die maximale Feldereingabelänge';
 		}
-		//Error on non exsisting category
+		//Error on non existing category
 		else if ($ddcategory != 'Audio' and $ddcategory != 'TV' and $ddcategory != 'Video' and $ddcategory != 'Comics' and $ddcategory != 'Buecher' and $ddcategory != 'PCs' and $ddcategory != 'Apple' and $ddcategory != 'NotebookZubehoer' and $ddcategory != 'Autos' and $ddcategory != 'Motorraeder' and $ddcategory != 'BlueRay' and $ddcategory != 'DVDs' and $ddcategory != 'ActionCam' and $ddcategory != 'Digitalcamera' and $ddcategory != 'Optik' and $ddcategory != 'PCSpiele' and $ddcategory != 'PlaystationSpiele' and $ddcategory != 'Spielkonsolen' and $ddcategory != 'HandysSmartphones' and $ddcategory != 'PrePaidKarten' and $ddcategory != 'Fussball' and $ddcategory != 'Skisport' and $ddcategory != 'Instrumente' and $ddcategory != 'Blasinstrumente' and $ddcategory != 'Goldschmuck' and $ddcategory != 'Uhren' and $ddcategory != 'Edelnsteine'){
 			$_SESSION['form_sell_error'] = 'Die Kategorie ' . $ddcategory . ' existiert nicht';
 		}
+		//Error on non existing payment
+		else if ($ddpayment != 1 and $ddpayment != 2){
+			$_SESSION['form_sell_error'] = $ddpayment . ' ist keine gültige Zahlungsart';
+		}
 		//Erro on negativ or 0 price
 		else if ($price <= 0){
-			$_SESSION['form_sell_error'] = 'Der Preis darf nicht Null oder kleiner sein';
+			$_SESSION['form_sell_error'] = 'Der Preis darf weder Null noch kleiner sein';
 		}
 		//Error on non numeric price
 		else if (!is_numeric($price)){
@@ -91,9 +98,10 @@
 		}
 		else{
 			$category = category($ddcategory);
+			$subcategory = subcategory($ddcategory);
 			$soldby = soldby($_SESSION['username']);
 			$image = upload_image($image, $image_size, $image_tmp);
-			sell($product_title, $price, $product_description, $category, $image, $all_tags, $soldby, $beginoffer);
+			sell($product_title, $price, $product_description, $category, $subcategory, $ddpayment, $image, $all_tags, $soldby, $beginoffer);
 		}
 	}
 ?>
@@ -230,6 +238,16 @@
 							<option value="Goldschmuck">Goldschmuck</option>
 							<option value="Uhren">Uhren</option>
 							<option value="Edelsteine">Edelsteine</option>
+						</select>
+						<label>Kategorie:</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s5 offset-s3">
+						<select name="ddpayment" id="ddpayment">
+							<option value="" disabled selected>Zahlungsart</option>
+							<option value="1">Barzahlung bei Abholung</option>
+							<option value="2">Überweisung per Bank / Post</option>
 						</select>
 						<label>Kategorie:</label>
 					</div>

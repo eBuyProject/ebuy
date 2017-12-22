@@ -9,7 +9,7 @@
 		$date = date('d.m.Y');
 		
 		//SQL query to find all Sales made by logged in user, loop is needed because there can be multiple entries
-		$sql = "SELECT fldStartOffer, fldProduct, fldDescription, fldPrice, fldEnabled, fldImage, fldFkBoughtBy FROM tblProducts WHERE fldFkSoldBy LIKE '$user_id'";	
+		$sql = "SELECT fldIdProduct, fldStartOffer, fldProduct, fldDescription, fldPrice, fldEnabled, fldImage, fldFkBoughtBy FROM tblProducts WHERE fldFkSoldBy LIKE '$user_id'";	
 		$stmt = $handle->query($sql);
 		while($rows = $stmt->fetchObject()){
 			
@@ -26,12 +26,12 @@
 				echo 'Kein Käufer';
 			}
 			else{
-				echo '<a class="modal-trigger" href="#' . $row->fldUsername . '">' . $row->fldUsername . '</a></td>';
+				echo '<a class="modal-trigger" href="#' . $row->fldIdUser . '">' . $row->fldUsername . '</a></td>';
 			}
 			echo '
-				<td><a class="modal-trigger" href="#' . $rows->fldProduct . '">' . $rows->fldProduct . '</a></td>
+				<td><a class="modal-trigger" href="#modalProduct' . $rows->fldIdProduct . '">' . $rows->fldProduct . '</a></td>
 				<td>' . $rows->fldPrice . ' CHF</td><td>';
-				if ($rows->fldEnabled == True){ echo 'Offen';}else{ echo 'Abgeschlossen';}
+				if ($rows->fldEnabled == True){ echo 'Offen';}else{ echo 'Verkauft';}
 				echo '
 				</td>
 					<td>
@@ -56,7 +56,7 @@
 		';
 		
 		//SQL query to find all Sales made by logged in user, loop is needed because there can be multiple entries
-		$sql = "SELECT fldStartOffer, fldProduct, fldDescription, fldPrice, fldEnabled, fldImage, fldFkBoughtBy FROM tblProducts WHERE fldFkSoldBy LIKE '$user_id'";	
+		$sql = "SELECT fldIdProduct, fldStartOffer, fldProduct, fldDescription, fldPrice, fldEnabled, fldImage, fldFkBoughtBy FROM tblProducts WHERE fldFkSoldBy LIKE '$user_id'";	
 		$stmt = $handle->query($sql);
 		while($rows = $stmt->fetchObject()){
 			
@@ -79,7 +79,7 @@
 			
 			//Auto generated HTML
 			echo '
-				<div id="' . $row->fldUsername . '" class="modal">
+				<div id="' . $row->fldIdUser . '" class="modal">
 					<div class="modal-content">
 						<h4>' . $row->fldUsername . '<i class="material-icons icon-star">&nbsp;star star star star star_border</i></h4>
 						<br />
@@ -106,7 +106,7 @@
 			';
 			
 			echo '
-				<div id="' . $rows->fldProduct . '" class="modal">
+				<div id="modalProduct' . $rows->fldIdProduct . '" class="modal">
 					<div class="modal-content">
 						<h4>' . $rows->fldProduct . '</h4>
 						<div class="clearfix float-my-children">

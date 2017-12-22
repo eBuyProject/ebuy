@@ -1,9 +1,8 @@
 <?php
 	//Function to create a new Product
 
-	function sell($_product_title, $_price, $_product_description, $_category, $_image, $_all_tags, $_sold_by, $_begin_offer){
+	function sell($_product_title, $_price, $_product_description, $_category, $_subcategory, $_payment, $_image, $_all_tags, $_sold_by, $_begin_offer){
 		include('mysql_db_connect.php');
-		
 		
 		//Variables
 		$all_tags_id = array();
@@ -18,9 +17,11 @@
 						fldDescription,
 						fldPrice,
 						fldImage,
+						fldStartOffer,
 						fldFkSoldBy,
 						fldFkCategory,
-						fldStartOffer,
+						fldFkSubcategory,
+						fldFkPayment,
 						fldEnabled
 					)
 					VALUES
@@ -29,9 +30,11 @@
 						:fldDescription,
 						:fldPrice,
 						:fldImage,
+						:fldStartOffer,
 						:fldFkSoldBy,
 						:fldFkCategory,
-						:fldStartOffer,
+						:fldFkSubcategory,
+						:fldFkPayment,
 						:fldEnabled
 					)
 				');
@@ -45,9 +48,11 @@
 					$stmt -> bindParam(':fldDescription',   		$_product_description);
 					$stmt -> bindParam(':fldPrice',   	$_price);
 					$stmt -> bindParam(':fldImage',   $_image);
+					$stmt -> bindParam(':fldStartOffer',   $_begin_offer);
 					$stmt -> bindParam(':fldFkSoldBy',   $_sold_by);
 					$stmt -> bindParam(':fldFkCategory',   $_category);
-					$stmt -> bindParam(':fldStartOffer',   $_begin_offer);
+					$stmt -> bindParam(':fldFkSubcategory',   $_subcategory);
+					$stmt -> bindParam(':fldFkPayment',   $_payment);
 					$stmt -> bindParam(':fldEnabled',   $true);
 					
 					//Error on failed insert execution
