@@ -1,0 +1,205 @@
+html, body {
+	margin: 0;
+}
+
+/*Pagineation on home change default color*/
+.pagination>li.active>a {
+    background: #4db6ac !important;
+}
+	
+/*Style for the menu*/
+#home_navigation{
+	height: 100px !important;
+}
+#nav-mobile {
+	padding-top: 20px !important;
+	padding-right: 100px !important;
+}
+.btn-min-width{
+	min-width:200px !important;
+}
+.brand-logo{
+	padding-top: 15px !important;
+	padding-left: 100px !important;
+}
+/*=============================*/
+
+/*Chnage background on selected category*/
+.color{
+	background-color: #b2dfdb ;
+}
+
+/*Remove decoration from a elements in product table*/
+.no-decoration a{
+	text-decoration: none !important;
+	color: black !important;
+}
+
+blockquote{
+	border-left: 5px solid #26a69a !important;
+}
+
+.productimage{
+	width: 300px;
+}
+
+/*table style*/
+#userinformations {
+	margin-top: 40px;
+}
+#userinformations table{
+	width: 50px !important;
+}
+#userinformations td{
+	padding-left: 30px;
+}
+#productinformations {
+	margin-top: 40px;
+}
+#productinformations table{
+	width: 50px !important;
+}
+#productinformations td{
+	padding-left: 30px;
+}
+/*=============================*/
+
+#usersettings {
+	margin-top: 80px;
+}
+
+/*p in product modal in homepage*/
+.DescTitle{
+	font-size: 20px;
+	font-weight: bold;
+	margin-top: 0;
+}
+.DescPrice{
+	font-size: 25px;
+	font-weight: bold;
+}
+.DescVerkaufer{
+	font-size: 13px;
+	vertical-align: bottom;
+}
+/*=============================*/
+
+
+#ceckTerms {
+	font-size: 12px;
+}
+
+.spacer {
+    margin-top: 70px; /* define margin */
+}
+
+#search_bar {
+	text-align: center;
+	margin: 0 auto;
+}
+
+#prodcard, #form_regisrter_login{
+	margin-top: 100px;
+	height: 100%;
+}
+
+#bottomnavigation{
+	margin-top: 30px;
+}
+
+
+/*Just to change the tabs color*/
+.tabs .tab a{
+    color:#00ACC1 !important;
+}
+.tabs .tab a:hover,.tabs .tab a.active {
+	background-color:transparent !important;
+	color:#008B9B !important;
+}
+.tabs .tab.disabled a,.tabs .tab.disabled a:hover {
+	color:rgba(102,147,153,0.7) !important;	
+}
+.tabs .indicator {
+	background-color:#009BAD !important;
+}
+/*=============================*/
+
+
+/*To change icon color*/
+i.icon-star {
+    color: #ffca28;
+}
+
+/*Bewertung Sterne Style*/
+.star-rating {
+  font-family: 'FontAwesome';
+  margin: 50px auto;
+}
+.star-rating > fieldset {
+  border: none;
+  display: inline-block;
+}
+.star-rating > fieldset:not(:checked) > input {
+  position: absolute;
+  top: -9999px;
+  clip: rect(0, 0, 0, 0);
+}
+.star-rating > fieldset:not(:checked) > label {
+  float: right;
+  width: 1em;
+  padding: 0 .05em;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 200%;
+  color: #16a085;
+}
+.star-rating > fieldset:not(:checked) > label:before {
+  content: '\f006  ';
+}
+.star-rating > fieldset:not(:checked) > label:hover,
+.star-rating > fieldset:not(:checked) > label:hover ~ label {
+  color: #1abc9c;
+  text-shadow: 0 0 3px #1abc9c;
+}
+.star-rating > fieldset:not(:checked) > label:hover:before,
+.star-rating > fieldset:not(:checked) > label:hover ~ label:before {
+  content: '\f005  ';
+}
+.star-rating > fieldset > input:checked ~ label:before {
+  content: '\f005  ';
+}
+.star-rating > fieldset > label:active {
+  position: relative;
+  top: 2px;
+}
+/*=============================*/
+
+/*Style for the modals*/
+.float-my-children > * {
+  float: left;
+  margin-right: 5px;
+}
+
+/* Image and text allignment with clearfix on home page*/
+.clearfix {
+  *zoom: 1/* for IE */
+}
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+.imagepadding{
+	padding-right: 30px;
+	width:60%;
+}
+/*=============================*/
+
+
+
+
+
