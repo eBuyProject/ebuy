@@ -60,6 +60,10 @@
 			$tag_char = $tags[$i];
 			
 			if (strpos($tag_char, "\n") !== false){
+				
+				//Remove <br /> tag from string
+				$tag_string = preg_replace("/<br\W*?\/>/", "", $tag_string);
+			
 				array_push($all_tags, $tag_string);
 				
 				$tag_string = '';
@@ -67,7 +71,7 @@
 			else{
 				$tag_string = $tag_string . $tag_char;
 			}
-		}
+		}		
 		
 		//Error on empty fields
 		if (strlen($product_title) == 0 or strlen($price) == 0 or strlen($product_description) == 0 or strlen($ddcategory) == 0 or strlen($ddpayment) == 0 or strlen($image) == 0){

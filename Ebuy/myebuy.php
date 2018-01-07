@@ -8,12 +8,9 @@
 		header ('Location: index.php');
 	}
 	
-	//Database connection
-	
-	
 	//Inludes
 	
-	//Global Variables
+	require_once('php/get_rating.php');
 ?>
 <!DOCTYPE html>
 
@@ -46,18 +43,17 @@
 	</head>
 	
 	<body>
-	
-				<!--Top navigation-->
-				<nav id="home_navigation">
-					<div class="nav-wrapper grey lighten-5">
-						<a href="index.php" class="brand-logo left"><img src="img/logo.png"/></a>
-						
-						<!-- Dropdown Button nur when angemeldet -->
-						<ul id="nav-mobile" class="right">
-							<li><a class="btn-min-width waves-effect waves-light dropdown-button btn" data-activates="dropdownAccount"><?php echo $_SESSION['username'] ?><i class="material-icons right">account_circle</i></a></li>
-						</ul>
-					</div>
-				</nav>
+		<!--Top navigation-->
+		<nav id="home_navigation">
+			<div class="nav-wrapper grey lighten-5">
+				<a href="index.php" class="brand-logo left"><img src="img/logo.png"/></a>
+				
+				<!-- Dropdown Button nur when angemeldet -->
+				<ul id="nav-mobile" class="right">
+					<li><a class="btn-min-width waves-effect waves-light dropdown-button btn" data-activates="dropdownAccount"><?php echo $_SESSION['username'] ?><i class="material-icons right">account_circle</i></a></li>
+				</ul>
+			</div>
+		</nav>
 		<!-- Username Dropdown Button -->
 
 		<ul id="dropdownAccount" class="dropdown-content">
@@ -98,12 +94,8 @@
 				<!-- Username and Rating-->
 				<div class="row">
 					<div class="input-field col s10">
-						<blockquote><h4>My eBuy: <?php echo $_SESSION['username']; ?>
-							<i class="fa fa-star icon-star" aria-hidden="true"></i>
-							<i class="fa fa-star icon-star" aria-hidden="true"></i>
-							<i class="fa fa-star icon-star" aria-hidden="true"></i>
-							<i class="fa fa-star icon-star" aria-hidden="true"></i>
-							<i class="fa fa-star-o icon-star" aria-hidden="true"></i></h4>
+						<blockquote>
+							<h4>My eBuy: <?php echo $_SESSION['username']; getRating($_SESSION['id']);?></h4>
 						</blockquote>
 					</div>
 				</div>
@@ -133,10 +125,12 @@
 						</thead>
 
 						<tbody>
+							
 							<?php include('php/my_sell.php'); my_sell(); ?>
 				
 				<!-- Table "MEIN KAUFEN"-->
 				<div id="profile-swipe-2" class="col s12">
+					
 					<table>
 						<thead>
 							<tr>
@@ -151,111 +145,8 @@
 						</thead>
 
 						<tbody>
-							<?php include('php/my_buy.php'); my_buy(); ?>
-			
-							<!--<tr>
-								<td>Neu</td>
-								<td><a class="modal-trigger" href="#modalUser">Franzfranz</a></td>
-								<td><a class="modal-trigger" href="#modalProductInfo">Citroen C3 1.2i</a></td>
-								<td>22'650 CHF</td>
-								<td>Abgeschlossen</td>
-								<td>
-									<select class="starskaufen">
-									  <option value="1">1</option>
-									  <option value="2">2</option>
-									  <option value="3">3</option>
-									  <option value="4">4</option>
-									  <option value="5">5</option>
-									</select>
-								</td>
-								<td class="no-decoration"><a class="modal-trigger" href="#modalComment"><i class="material-icons">comment</i></a></td>
-							</tr>
-							<tr>
-								<td>11.11.2017</td>
-								<td><a class="modal-trigger" href="#modalUser">Mirkogross</a></td>
-								<td><a class="modal-trigger" href="#modalProductInfo">Nikon D300S</a></td>
-								<td>580 CHF</td>
-								<td>Abgeschlossen</td>
-								<td>
-									<select class="starskaufen">
-									  <option value="1">1</option>
-									  <option value="2">2</option>
-									  <option value="3">3</option>
-									  <option value="4">4</option>
-									  <option value="5">5</option>
-									</select>
-								</td>
-								<td class="no-decoration"><a class="modal-trigger" href="#modalComment"><i class="material-icons">check</i></a></td>
-							</tr>
-							<tr>
-								<td>11.11.2017</td>
-								<td><a class="modal-trigger" href="#modalUser">Friedchicken11</a></td>
-								<td><a class="modal-trigger" href="#modalProductInfo">E-Gitarre Stratocaster</a></td>
-								<td>140 CHF</td>
-								<td>Im Verlauf</td>
-								<td>
-									<select class="starskaufen">
-									  <option value="1">1</option>
-									  <option value="2">2</option>
-									  <option value="3">3</option>
-									  <option value="4">4</option>
-									  <option value="5">5</option>
-									</select>
-								</td>
-								<td class="no-decoration"><a class="modal-trigger" href="#modalComment"><i class="material-icons">comment</i></a></td>
-							</tr>-->
-						
-			
-		<!-- Modal Structure for User-->
-		<!--<div id="modalUser" class="modal">
-			<div class="modal-content">
-				<h4>HisHerUsername<i class="material-icons icon-star">&nbsp;star star star star star_border</i></h4>
-				<br />
-				<table>
-				  <tr>
-					<th>Email Adresse:</th>
-					<td><a>hisherusername@pollos.com</a></td>
-				  </tr>
-				  <tr>
-					<th>Total verkaufte Produkte</th>
-					<td><a>11</a></td>
-				  </tr>
-				  <tr>
-					<th>Gekaufte Produkte</th>
-					<td><a>3</a></td>
-				  </tr>
-				</table>
-			</div>
-			<div class="modal-footer">
-				<a href="userprof.php" class=" waves-effect waves-teal lighten-2 btn-flat">Profil anzeigen</a>
-				<a class="modal-action modal-close waves-effect waves-teal lighten-2 btn-flat">Schliessen</a>
-			</div>
-		</div>
-		
-		<!-- Modal Structure for Product-->
-		<!--<div id="modalProductInfo" class="modal">
-			<div class="modal-content">
-				<h4>Panasonic LCD TV</h4>
-				<div class="clearfix float-my-children">
-					<img src="img/products/panasonic.jpg" class="imagepadding">
-					<div>
-						<p class="DescTitle">Produkt Beschreibung:</p>
-						<p class="Description">
-						PANASONIC LCD TV 42"(107 cm)<br />
-						MODEL:TX-L42E6EK<br />
-						BILDSCHIRM DEFEKT<br />
-						OHNE FERNBEDIENUNG
-						</p>
-						<p class="DescPrice">Preis: 200 CHF</p>
-						<p class="DescVerkaufer">Verkäufer: <a href="userprof.php">Jellybean61</a></p>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<a class="modal-action modal-close waves-effect waves-teal lighten-2 btn-flat">Schliessen</a>
-			</div>			
-		</div>		
-		</div>
+								<?php include('php/my_buy.php'); my_buy(); ?>
+							
 
 		<!-- jQuery -->
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

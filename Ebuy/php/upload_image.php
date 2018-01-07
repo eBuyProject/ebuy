@@ -30,10 +30,10 @@
 			$id = 1;
 			do {
 				$new_path = $upload_folder.$filename.'_'.$id.'.'.$extension;
+				$filename = $filename.'_'.$id.'.'.$extension;
 				$id++;
 			} while(file_exists($new_path));
 			move_uploaded_file($_image_tmp, $new_path);
-			$filename = $filename.'_'.$id.'.'.$extension;
 			return $filename;
 		}
 		else{

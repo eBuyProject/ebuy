@@ -4,6 +4,10 @@
 	//Database connection
 	
 	require_once('php/mysql_r_db_connect.php');
+	
+	//Includes
+	
+	require_once('php/get_rating.php');
 		
 	//Site only accessible with a selected user
 	if (!isset($_GET['user'])){
@@ -138,12 +142,9 @@
 				<!-- Username and Rating-->
 				<div class="row">
 					<div class="input-field col s10">
-						<blockquote class="blocknear"><h4><?php echo $row->fldUsername; ?> 
-							<i class="fa fa-star icon-star" aria-hidden="true"></i>
-							<i class="fa fa-star icon-star" aria-hidden="true"></i>
-							<i class="fa fa-star-half-o icon-star" aria-hidden="true"></i>
-							<i class="fa fa-star-o icon-star" aria-hidden="true"></i>
-							<i class="fa fa-star-o icon-star" aria-hidden="true"></i></h4>
+						<blockquote class="blocknear">
+							<h4>
+								<?php echo $row->fldUsername; getRating($id_user);?></h4>
 						</blockquote>
 					</div>
 					

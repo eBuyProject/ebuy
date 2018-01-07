@@ -181,6 +181,10 @@ i.icon-star {
   margin-right: 5px;
 }
 
+.modalComment{
+	height:300px;
+}
+
 /* Image and text allignment with clearfix on home page*/
 .clearfix {
   *zoom: 1/* for IE */

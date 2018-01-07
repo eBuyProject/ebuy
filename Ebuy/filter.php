@@ -213,19 +213,8 @@
 			<!-- End of category element-->
 			
 			<form action="filter.php" method="GET">
-				<!--Search box-->
-				<div class="col m6 offset-m1 grey lighten-5">	
-				<?php echo $_SESSION['form_search_error']; ?>				
-					 <div class="row">
-						<div class="input-field col s12">
-							<i class="material-icons prefix">search</i>
-							<input type="text" name="search" id="autocomplete-input" class="autocomplete" required="required">
-							<label for="autocomplete-input">Search</label>
-						</div>
-					  </div>
-				</div>
-				<!-- End of search box -->
-			
+				
+				<?php echo $_SESSION['form_search_error']; ?>			
 				<!--Categories filter-->
 				<div class="col m3 offset-m1 grey lighten-5">
 					<div class="input-field col s12">
@@ -260,6 +249,19 @@
 					</div>
 				</div>
 				<!-- End of sorting options -->
+				
+				<!--Search box-->
+				<div class="col m6 offset-m1 grey lighten-5">		
+					<div class="row">
+						<div class="input-field col s12">
+							<i class="material-icons prefix">search</i>
+							<input type="text" name="search" id="autocomplete-input" class="autocomplete" required="required">
+							<label for="autocomplete-input">Search</label>
+						</div>
+					 </div>
+				</div>
+				<!-- End of search box -->
+				
 				<input type="submit" name="start_search" value="Suchen" style="display:none;"/>
 			
 			<!-- Begin of product listing -->

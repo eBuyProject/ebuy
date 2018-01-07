@@ -9,7 +9,7 @@
 		$date = date('d.m.Y');
 		
 		//SQL query to find all Sales made by logged in user, loop is needed because there can be multiple entries
-		$sql = "SELECT fldIdProduct, fldStartOffer, fldProduct, fldDescription, fldPrice, fldEnabled, fldImage, fldFkBoughtBy FROM tblProducts WHERE fldFkSoldBy LIKE '$user_id'";	
+		$sql = "SELECT fldIdProduct, fldStartOffer, fldProduct, fldDescription, fldPrice, fldEnabled, fldImage, fldFkBoughtBy, fldFkRating FROM tblProducts WHERE fldFkSoldBy LIKE '$user_id'";	
 		$stmt = $handle->query($sql);
 		while($rows = $stmt->fetchObject()){
 			
@@ -25,6 +25,9 @@
 			if ($row->fldUsername == NULL){
 				echo 'Kein Käufer';
 			}
+			else if ($row->fldUsername == $_SESSION['username']){
+				echo 'Anzeige entfernt';
+			}
 			else{
 				echo '<a class="modal-trigger" href="#' . $row->fldIdUser . '">' . $row->fldUsername . '</a></td>';
 			}
@@ -32,31 +35,109 @@
 				<td><a class="modal-trigger" href="#modalProduct' . $rows->fldIdProduct . '">' . $rows->fldProduct . '</a></td>
 				<td>' . $rows->fldPrice . ' CHF</td><td>';
 				if ($rows->fldEnabled == True){ echo 'Offen';}else{ echo 'Verkauft';}
-				echo '
-				</td>
-					<td>
-						<select class="starskaufen">
-						  <option value="1">1</option>
-						  <option value="2">2</option>
-						  <option value="3">3</option>
-						  <option value="4">4</option>
-						  <option value="5">5</option>
-						</select>
-					</td>
-					<td class="no-decoration"><a class="modal-trigger" href="#modalComment"><i class="material-icons">comment</i></a></td>
-				</tr>
-			';
+				echo '</td>';
+					//SQL query to find rating of user
+						$sql_r = "SELECT fldRating FROM tblRatings WHERE fldIdRating LIKE '$rows->fldFkRating'";
+						$stmt_r = $handle->query($sql_r);		
+						$row_r = $stmt_r->fetchObject();
+						
+						//Show stars 
+						switch($row_r->fldRating){
+							case 1:
+								echo'
+									<td>
+										<h5>
+											<i class="fa fa-star icon-star" aria-hidden="true"></i>
+											<i class="fa fa-star-o icon-star" aria-hidden="true"></i>
+											<i class="fa fa-star-o icon-star" aria-hidden="true"></i>
+											<i class="fa fa-star-o icon-star" aria-hidden="true"></i>
+											<i class="fa fa-star-o icon-star" aria-hidden="true"></i>
+										</h5>
+									</td>
+								';
+								break;
+							case 2:
+								echo'
+									<td>
+										<h5>
+											<i class="fa fa-star icon-star" aria-hidden="true"></i>
+											<i class="fa fa-star icon-star" aria-hidden="true"></i>
+											<i class="fa fa-star-o icon-star" aria-hidden="true"></i>
+											<i class="fa fa-star-o icon-star" aria-hidden="true"></i>
+											<i class="fa fa-star-o icon-star" aria-hidden="true"></i>
+										</h5>
+									</td>
+								';
+								break;
+							case 3:
+								echo'
+									<td>
+										<h5>
+											<i class="fa fa-star icon-star" aria-hidden="true"></i>
+											<i class="fa fa-star icon-star" aria-hidden="true"></i>
+											<i class="fa fa-star icon-star" aria-hidden="true"></i>
+											<i class="fa fa-star-o icon-star" aria-hidden="true"></i>
+											<i class="fa fa-star-o icon-star" aria-hidden="true"></i>
+										</h5>
+									</td>
+								';
+								break;
+							case 4:
+									echo'
+										<td>
+											<h5>
+												<i class="fa fa-star icon-star" aria-hidden="true"></i>
+												<i class="fa fa-star icon-star" aria-hidden="true"></i>
+												<i class="fa fa-star icon-star" aria-hidden="true"></i>
+												<i class="fa fa-star icon-star" aria-hidden="true"></i>
+												<i class="fa fa-star-o icon-star" aria-hidden="true"></i>
+											</h5>
+										</td>
+									';
+									break;
+							case 5:
+									echo'
+										<td>
+											<h5>
+												<i class="fa fa-star icon-star" aria-hidden="true"></i>
+												<i class="fa fa-star icon-star" aria-hidden="true"></i>
+												<i class="fa fa-star icon-star" aria-hidden="true"></i>
+												<i class="fa fa-star icon-star" aria-hidden="true"></i>
+												<i class="fa fa-star icon-star" aria-hidden="true"></i>
+											</h5>
+										</td>
+									';
+									break;
+							default:
+									echo'
+										<td>
+											<h5>
+												<i class="fa fa-star icon-star-o" aria-hidden="true"></i>
+												<i class="fa fa-star icon-star-o" aria-hidden="true"></i>
+												<i class="fa fa-star icon-star-o" aria-hidden="true"></i>
+												<i class="fa fa-star icon-star-o" aria-hidden="true"></i>
+												<i class="fa fa-star icon-star-o" aria-hidden="true"></i>
+											</h5>
+										</td>
+									';
+									break;
+						}
+					if ($rows->fldFkRating == NULL){
+						echo '<td class="no-decoration"><a class="modal-trigger" href="#modalCommentShow' . $rows->fldIdProduct . '"><i class="material-icons">comment</i></a></td>';
+					}
+					else{
+						echo '<td class="no-decoration"><a class="modal-trigger" href="#modalCommentShow' . $rows->fldIdProduct . '"><i class="material-icons">check</i></a></td>';
+					}
+				echo '</tr>';
 		}
 		echo '
-			</tbody>
-					</table>
-				</div>
+					</tbody>
+				</table>
 			</div>
-		</div>
 		';
 		
 		//SQL query to find all Sales made by logged in user, loop is needed because there can be multiple entries
-		$sql = "SELECT fldIdProduct, fldStartOffer, fldProduct, fldDescription, fldPrice, fldEnabled, fldImage, fldFkBoughtBy FROM tblProducts WHERE fldFkSoldBy LIKE '$user_id'";	
+		$sql = "SELECT fldIdProduct, fldStartOffer, fldProduct, fldDescription, fldPrice, fldEnabled, fldImage, fldFkBoughtBy, fldFkRating FROM tblProducts WHERE fldFkSoldBy LIKE '$user_id'";	
 		$stmt = $handle->query($sql);
 		while($rows = $stmt->fetchObject()){
 			
@@ -123,6 +204,29 @@
 						<a class="modal-action modal-close waves-effect waves-teal lighten-2 btn-flat">Schliessen</a>
 					</div>			
 				</div>
+			';
+			
+			//SQL query to find rating comment of user
+			$sql_c = "SELECT fldComment FROM tblRatings WHERE fldIdRating LIKE '$rows->fldFkRating'";
+			$stmt_c = $handle->query($sql_c);		
+			$row_c = $stmt_c->fetchObject();
+			
+			echo '
+				<!-- Modal Structure for Comment-->
+				<div id="modalCommentShow' . $rows->fldIdProduct . '" class="modal">
+					<div class="modal-content">
+						<p class="Description">Kommentar vom Käufer</p>
+						<br />
+							<div class="input-field col s12">'
+							. $row_c->fldComment .	
+							'</div>
+							<input type="hidden" name="product" value="' . $rows->fldIdProduct . '" />
+					
+					</div>
+					<div class="modal-footer">
+						<a class="modal-action modal-close waves-effect waves-teal lighten-2 btn-flat">Schliessen</a>
+					</div>
+				</div>	
 			';
 		}
 	}

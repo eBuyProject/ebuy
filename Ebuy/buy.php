@@ -14,6 +14,17 @@
 	
 	$id_product = $_GET['product'];
 	
+	//SQL query to check if Product exists
+	$sql = "SELECT COUNT(fldIdProduct) FROM tblProducts WHERE fldIdProduct LIKE '$id_product' LIMIT 1"; 
+	$quantity = $handle -> prepare($sql);
+	$quantity->execute();
+	$row = $quantity->fetchColumn();
+	
+	//Check 
+	if ($row == 0){
+		header('Location: index.php');
+	}
+	
 	//SQL query to get product data
 	$sql = "SELECT fldProduct, fldDescription, fldPrice, fldImage, fldFkSoldBy, fldFkPayment, fldEnabled FROM tblProducts WHERE fldIdProduct LIKE '$id_product'";
 	$stmt = $handle->query($sql);
@@ -146,16 +157,21 @@
 					<form action="php/buy.php" method="POST">
 						<input type="hidden" name="product" value="<?php echo $_GET['product']; ?>" />
 						<?php
-							//Display "buy button" if the product is not already bought or if you are not the seller
-							if ($row_s->fldUsername == $_SESSION['username']){
-								echo 'Sie könnne ihr eigenes Produkt nicht erwerben';
+							if (isset($_SESSION['username'])){
+								//Display "buy button" if the product is not already bought or if you are not the seller
+								if ($row_s->fldUsername == $_SESSION['username']){
+									echo '<button class="center btn waves-effect waves-light" type="submit" name="remove">Produkt entfernen</button>';
+								}
+								else if ($row->fldEnabled == true){
+									echo '<button class="center btn waves-effect waves-light" type="submit" name="buy">Kauf Bestätigen</button>';
+								}
+								
+								else{
+									echo 'Dieses Produkt wurde bereits erworben';
+								}
 							}
-														else if ($row->fldEnabled == true){
-								echo '<button class="center btn waves-effect waves-light" type="submit" name="buy">Kauf Bestätigen</button>';
-							}
-							
 							else{
-								echo 'Dieses Produkt wurde bereits erworben';
+								echo 'Melden Sie sich an um ein Produkt zu kaufen';
 							}
 						?>
 						<!--<a href="myebuy.php#profile-swipe-2" class="waves-effect waves-light btn"><i class="material-icons right">chevron_right</i>Kauf Bestätigen</a>-->
